@@ -1,16 +1,17 @@
 import json
 from pathlib import Path
 
+from anonymise import prefix
 from anonymiser import Anonymizer
 
 
 def main(prefix):
-    p = Path(__file__).parent
+    p = Path(__file__).parent / 'assets'
     f = p / f'{prefix}answer'
     reverse_text = f.read_text(encoding='utf-8')
 
     anonymizer = Anonymizer()
-    anonymizer.load_mapping(f"{prefix}mapping.json")
+    anonymizer.load_mapping(f"assets/{prefix}mapping.json")
 
     restored_text = anonymizer.deanonymize(reverse_text)
 
@@ -19,7 +20,4 @@ def main(prefix):
 
 
 if __name__ == "__main__":
-    # prefix = '1_'
-    # prefix = '2_'
-    prefix = '3_'
     main(prefix)
